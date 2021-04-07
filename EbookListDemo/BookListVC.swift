@@ -8,6 +8,12 @@
 import UIKit
 
 class BookListVC: UIViewController {
+    
+    lazy var searchBar: UISearchBar = {
+        let searchBar = UISearchBar()
+        searchBar.delegate = self
+        return searchBar
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -15,11 +21,30 @@ class BookListVC: UIViewController {
     }
     
     func setupView() {
-        //TODO: Add searchBar, tableView, and related delegates
+        setupSearchBar()
+        //TODO: Implement tableView
+    }
+    
+    func setupSearchBar() {
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(searchBar)
+        
+        NSLayoutConstraint.activate([searchBar.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
+                                     searchBar.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
+                                     searchBar.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor)])
     }
     
     func loadData() {
         //TODO: Implement viewModel to provide list of ebook objects
     }
 
+}
+
+extension BookListVC: UISearchBarDelegate {
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        //TODO: Implement viewModel to accept search term
+        print(searchBar.text)
+    }
+    
 }
