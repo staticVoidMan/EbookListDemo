@@ -14,6 +14,8 @@ class BookListVC: UIViewController {
         searchBar.delegate = self
         return searchBar
     }()
+    
+    var viewModel: BookListVM = .init(provider: Providers.eBookListProvider)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,8 +36,15 @@ class BookListVC: UIViewController {
                                      searchBar.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor)])
     }
     
-    func loadData() {
-        //TODO: Implement viewModel to provide list of ebook objects
+    func loadData(searchTerm: String) {
+        viewModel.getEbooks(containing: searchTerm) { [weak self] error in
+            if let error = error {
+                print(error)
+            } else {
+                //TODO: Reload
+                print(self?.viewModel.eBooks)
+            }
+        }
     }
 
 }
@@ -43,8 +52,7 @@ class BookListVC: UIViewController {
 extension BookListVC: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        //TODO: Implement viewModel to accept search term
-        print(searchBar.text)
+        loadData(searchTerm: searchBar.text ?? "")
     }
     
 }
