@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		900951D9261EFBA2009128FD /* EbookCellVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 900951D8261EFBA2009128FD /* EbookCellVM.swift */; };
+		900C621D261F968500AD4E04 /* APIResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 900C621B261F968500AD4E04 /* APIResource.swift */; };
 		901300CE261EEAEB001A4F67 /* EbookListProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901300CD261EEAEB001A4F67 /* EbookListProvider.swift */; };
 		901300D4261EEAEB001A4F67 /* Ebook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901300D3261EEAEB001A4F67 /* Ebook.swift */; };
 		901300E0261EEAEB001A4F67 /* Providers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901300DF261EEAEB001A4F67 /* Providers.swift */; };
@@ -42,6 +43,7 @@
 
 /* Begin PBXFileReference section */
 		900951D8261EFBA2009128FD /* EbookCellVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EbookCellVM.swift; sourceTree = "<group>"; };
+		900C621B261F968500AD4E04 /* APIResource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIResource.swift; sourceTree = "<group>"; };
 		901300CD261EEAEB001A4F67 /* EbookListProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EbookListProvider.swift; sourceTree = "<group>"; };
 		901300D3261EEAEB001A4F67 /* Ebook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ebook.swift; sourceTree = "<group>"; };
 		901300DF261EEAEB001A4F67 /* Providers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Providers.swift; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 		901300DE261EEAEB001A4F67 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				900C621B261F968500AD4E04 /* APIResource.swift */,
 				901300DF261EEAEB001A4F67 /* Providers.swift */,
 			);
 			name = Managers;
@@ -340,6 +343,7 @@
 				9036C604261F871F003D6B6C /* UIFontExtension.swift in Sources */,
 				905343EE261F0D940082E32E /* EbookListProvider_Dummy.swift in Sources */,
 				905BE65A261DF7F70076E0E6 /* BookListVC.swift in Sources */,
+				900C621D261F968500AD4E04 /* APIResource.swift in Sources */,
 				901300CE261EEAEB001A4F67 /* EbookListProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
