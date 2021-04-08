@@ -14,7 +14,13 @@ struct EbookCellVM {
     
     var authorNamesText: String { "by " + eBook.authors.map { $0.name }.joined(separator: ", ") }
     
-    var narratorNamesText: String { "with " + eBook.narrators.map { $0.name }.joined(separator: ", ") }
+    var narratorNamesText: String {
+        if eBook.narrators.isEmpty {
+            return " "
+        } else {
+            return "with " + eBook.narrators.map { $0.name }.joined(separator: ", ")
+        }
+    }
     
     init(eBook: Ebook) {
         self.eBook = eBook
