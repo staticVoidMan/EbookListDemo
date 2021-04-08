@@ -11,6 +11,7 @@
 		901300CE261EEAEB001A4F67 /* EbookListProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901300CD261EEAEB001A4F67 /* EbookListProvider.swift */; };
 		901300D4261EEAEB001A4F67 /* Ebook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901300D3261EEAEB001A4F67 /* Ebook.swift */; };
 		901300E0261EEAEB001A4F67 /* Providers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901300DF261EEAEB001A4F67 /* Providers.swift */; };
+		9036C604261F871F003D6B6C /* UIFontExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9036C603261F871F003D6B6C /* UIFontExtension.swift */; };
 		905343EE261F0D940082E32E /* EbookListProvider_Dummy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 905343ED261F0D940082E32E /* EbookListProvider_Dummy.swift */; };
 		905BE622261DF7750076E0E6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 905BE621261DF7750076E0E6 /* AppDelegate.swift */; };
 		905BE629261DF7750076E0E6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 905BE627261DF7750076E0E6 /* Main.storyboard */; };
@@ -45,6 +46,7 @@
 		901300CD261EEAEB001A4F67 /* EbookListProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EbookListProvider.swift; sourceTree = "<group>"; };
 		901300D3261EEAEB001A4F67 /* Ebook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ebook.swift; sourceTree = "<group>"; };
 		901300DF261EEAEB001A4F67 /* Providers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Providers.swift; sourceTree = "<group>"; };
+		9036C603261F871F003D6B6C /* UIFontExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIFontExtension.swift; sourceTree = "<group>"; };
 		905343ED261F0D940082E32E /* EbookListProvider_Dummy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EbookListProvider_Dummy.swift; sourceTree = "<group>"; };
 		905BE61E261DF7750076E0E6 /* EbookListDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EbookListDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		905BE621261DF7750076E0E6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -120,6 +122,14 @@
 			name = Managers;
 			sourceTree = "<group>";
 		};
+		9036C602261F8706003D6B6C /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				9036C603261F871F003D6B6C /* UIFontExtension.swift */,
+			);
+			name = Extensions;
+			sourceTree = "<group>";
+		};
 		905BE615261DF7750076E0E6 = {
 			isa = PBXGroup;
 			children = (
@@ -149,6 +159,7 @@
 				901300D8261EEAEB001A4F67 /* Providers */,
 				901300D2261EEAEB001A4F67 /* Models */,
 				901300CC261EEAEB001A4F67 /* Protocols */,
+				9036C602261F8706003D6B6C /* Extensions */,
 				905BE627261DF7750076E0E6 /* Main.storyboard */,
 				905BE62A261DF7760076E0E6 /* Assets.xcassets */,
 				905BE62C261DF7760076E0E6 /* LaunchScreen.storyboard */,
@@ -330,6 +341,7 @@
 				900951D9261EFBA2009128FD /* EbookCellVM.swift in Sources */,
 				901300D4261EEAEB001A4F67 /* Ebook.swift in Sources */,
 				907074BD261F3ECA00B3B63F /* EbookCell.swift in Sources */,
+				9036C604261F871F003D6B6C /* UIFontExtension.swift in Sources */,
 				905343EE261F0D940082E32E /* EbookListProvider_Dummy.swift in Sources */,
 				905BE65A261DF7F70076E0E6 /* BookListVC.swift in Sources */,
 				901300CE261EEAEB001A4F67 /* EbookListProvider.swift in Sources */,
