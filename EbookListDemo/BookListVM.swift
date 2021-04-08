@@ -9,14 +9,14 @@ import Foundation
 
 enum BookListVMError: Error {
     case searchTermIsInvalid
-    case somethingWentWrong
+    case somethingWentWrong(error: Error?)
     
     var message: String {
         switch self {
         case .searchTermIsInvalid:
             return "Please enter a proper search term"
-        case .somethingWentWrong:
-            return "Something went wrong"
+        case .somethingWentWrong(let error):
+            return error?.localizedDescription ?? "Something went wrong"
         }
     }
 }
@@ -80,7 +80,7 @@ class BookListVM {
                     completion(.success(.reload))
                 }
             case .failure(let error):
-                completion(.failure(.somethingWentWrong))
+                completion(.failure(.somethingWentWrong(error: error)))
             }
         }
     }

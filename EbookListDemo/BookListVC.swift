@@ -101,7 +101,9 @@ class BookListVC: UIViewController {
                         self?.tableView.insertRows(at: newIndexPaths, with: .automatic)
                     }
                 case .failure(let error):
-                    print(error)
+                    let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .alert)
+                    alert.addAction(.init(title: "Okay", style: .cancel))
+                    self?.present(alert, animated: true)
                 }
             }
         }
