@@ -84,14 +84,23 @@ class BookListVC: UIViewController {
     func loadData(searchTerm: String) {
         activityIndicator.startAnimating()
         
-        viewModel.getEbooks(containing: searchTerm) { [weak self] error in
+        viewModel.getEbooks(containing: searchTerm) { [weak self] result in
             DispatchQueue.main.async {
                 self?.activityIndicator.stopAnimating()
                 
-                if let error = error {
+                switch result {
+                case .success(let loadType):
+                    switch loadType {
+                    case .none:
+                        break
+                    case .reload:
+                        self?.tableView.reloadData()
+                    case .append(let range):
+                        let newIndexPaths = range.map { IndexPath(row: $0, section: 0) }
+                        self?.tableView.insertRows(at: newIndexPaths, with: .automatic)
+                    }
+                case .failure(let error):
                     print(error)
-                } else {
-                    self?.tableView.reloadData()
                 }
             }
         }

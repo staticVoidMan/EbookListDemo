@@ -23,6 +23,12 @@ enum BookListVMError: Error {
 
 class BookListVM {
     
+    enum LoadType {
+        case none
+        case reload
+        case append(range: Range<Int>)
+    }
+    
     let provider: EbookListProvider
     
     var eBooks = [EbookCellVM]()
@@ -40,9 +46,9 @@ class BookListVM {
         return isValid
     }
     
-    func getEbooks(containing searchTerm: String, completion: @escaping (BookListVMError?)->Void) {
+    func getEbooks(containing searchTerm: String, completion: @escaping (Result<LoadType, BookListVMError>)->Void) {
         guard isSearchTermValid(searchTerm) else {
-            completion(BookListVMError.searchTermIsInvalid)
+            completion(.failure(.searchTermIsInvalid))
             return
         }
         
@@ -50,7 +56,7 @@ class BookListVM {
             nextPageToken = 0
         }
         
-        guard let nextPageToken = nextPageToken else { return }
+        guard let nextPageToken = nextPageToken else { completion(.success(.none)); return }
         
         provider.getEbooks(containing: searchTerm, offset: nextPageToken) { [weak self] (result) in
             guard let _weakSelf = self else { return }
@@ -61,15 +67,20 @@ class BookListVM {
                 _weakSelf.nextPageToken = response.nextPageToken
                 
                 if _weakSelf.searchTerm == searchTerm {
+                    let range: Range<Int> = {
+                        let startIndex = _weakSelf.eBooks.count
+                        let endIndex = startIndex + eBooks.count
+                        return startIndex..<endIndex
+                    }()
                     _weakSelf.eBooks.append(contentsOf: eBooks)
+                    completion(.success(.append(range: range)))
                 } else {
                     _weakSelf.searchTerm = searchTerm
                     _weakSelf.eBooks = eBooks
+                    completion(.success(.reload))
                 }
-                
-                completion(nil)
             case .failure(let error):
-                completion(BookListVMError.somethingWentWrong)
+                completion(.failure(.somethingWentWrong))
             }
         }
     }
