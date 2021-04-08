@@ -10,7 +10,7 @@ import Foundation
 struct Providers {
     
     static var eBookListProvider: EbookListProvider {
-        return EbookListProvider_Dummy()
+        return EbookListProvider_API()
     }
     
 }

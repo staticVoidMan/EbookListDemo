@@ -18,14 +18,14 @@ struct EbookListProvider_Dummy: EbookListProvider {
             
             for idx in 0...min(9, bookIndex) {
                 let idx = idx + 1
-                let author = Ebook.Person(id: idx, name: "Author \(idx)")
-                let narrator = Ebook.Person(id: idx, name: "Narrator \(idx)")
+                let author = Ebook.Person(id: String(idx), name: "Author \(idx)")
+                let narrator = Ebook.Person(id: String(idx), name: "Narrator \(idx)")
                 
                 authors.append(author)
                 narrators.append(narrator)
             }
             
-            let eBook = Ebook(id: bookIndex,
+            let eBook = Ebook(id: String(bookIndex),
                               title: "\(searchTerm) \(bookIndex)",
                               authors: authors,
                               narrators: narrators,
@@ -33,11 +33,11 @@ struct EbookListProvider_Dummy: EbookListProvider {
             return eBook
         }
         
-        let nextPageToken: Int? = {
+        let nextPageToken: String? = {
             if endIndex >= 50 {
                 return nil
             } else {
-                return endIndex
+                return String(endIndex)
             }
         }()
         let response = EBookList(nextPageToken: nextPageToken,

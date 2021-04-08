@@ -8,13 +8,13 @@
 import Foundation
 
 struct EBookList {
-    var nextPageToken: Int?
+    var nextPageToken: String?
     var eBooks: [Ebook]
 }
 
 struct Ebook {
     struct Person {
-        let id: Int
+        let id: String
         let name: String
     }
     
@@ -22,9 +22,20 @@ struct Ebook {
         let url: String
     }
     
-    let id: Int
+    let id: String
     let title: String
     let authors: [Person]
     let narrators: [Person]
     let cover: CoverArt
 }
+
+extension EBookList: Decodable {
+    enum CodingKeys: String, CodingKey {
+        case nextPageToken
+        case eBooks = "items"
+    }
+}
+
+extension Ebook: Decodable {}
+extension Ebook.Person: Decodable {}
+extension Ebook.CoverArt: Decodable {}

@@ -64,7 +64,7 @@ class BookListVM {
             switch result {
             case .success(let response):
                 let eBooks = response.eBooks.map(EbookCellVM.init)
-                _weakSelf.nextPageToken = response.nextPageToken
+                _weakSelf.nextPageToken = Int(response.nextPageToken ?? "")
                 
                 if _weakSelf.searchTerm == searchTerm {
                     let range: Range<Int> = {

@@ -8,7 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		900951D9261EFBA2009128FD /* EbookCellVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 900951D8261EFBA2009128FD /* EbookCellVM.swift */; };
+		900C621C261F968500AD4E04 /* APIEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 900C621A261F968500AD4E04 /* APIEndpoints.swift */; };
 		900C621D261F968500AD4E04 /* APIResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 900C621B261F968500AD4E04 /* APIResource.swift */; };
+		900C6222261F968B00AD4E04 /* EbookListProvider_API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 900C6221261F968B00AD4E04 /* EbookListProvider_API.swift */; };
 		901300CE261EEAEB001A4F67 /* EbookListProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901300CD261EEAEB001A4F67 /* EbookListProvider.swift */; };
 		901300D4261EEAEB001A4F67 /* Ebook.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901300D3261EEAEB001A4F67 /* Ebook.swift */; };
 		901300E0261EEAEB001A4F67 /* Providers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 901300DF261EEAEB001A4F67 /* Providers.swift */; };
@@ -43,7 +45,9 @@
 
 /* Begin PBXFileReference section */
 		900951D8261EFBA2009128FD /* EbookCellVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EbookCellVM.swift; sourceTree = "<group>"; };
+		900C621A261F968500AD4E04 /* APIEndpoints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIEndpoints.swift; sourceTree = "<group>"; };
 		900C621B261F968500AD4E04 /* APIResource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIResource.swift; sourceTree = "<group>"; };
+		900C6221261F968B00AD4E04 /* EbookListProvider_API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EbookListProvider_API.swift; sourceTree = "<group>"; };
 		901300CD261EEAEB001A4F67 /* EbookListProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EbookListProvider.swift; sourceTree = "<group>"; };
 		901300D3261EEAEB001A4F67 /* Ebook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ebook.swift; sourceTree = "<group>"; };
 		901300DF261EEAEB001A4F67 /* Providers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Providers.swift; sourceTree = "<group>"; };
@@ -110,6 +114,7 @@
 			isa = PBXGroup;
 			children = (
 				905343ED261F0D940082E32E /* EbookListProvider_Dummy.swift */,
+				900C6221261F968B00AD4E04 /* EbookListProvider_API.swift */,
 			);
 			name = Providers;
 			sourceTree = "<group>";
@@ -117,6 +122,7 @@
 		901300DE261EEAEB001A4F67 /* Managers */ = {
 			isa = PBXGroup;
 			children = (
+				900C621A261F968500AD4E04 /* APIEndpoints.swift */,
 				900C621B261F968500AD4E04 /* APIResource.swift */,
 				901300DF261EEAEB001A4F67 /* Providers.swift */,
 			);
@@ -334,9 +340,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				900C6222261F968B00AD4E04 /* EbookListProvider_API.swift in Sources */,
 				901300E0261EEAEB001A4F67 /* Providers.swift in Sources */,
 				905BE622261DF7750076E0E6 /* AppDelegate.swift in Sources */,
 				905BE662261DF80A0076E0E6 /* BookListVM.swift in Sources */,
+				900C621C261F968500AD4E04 /* APIEndpoints.swift in Sources */,
 				900951D9261EFBA2009128FD /* EbookCellVM.swift in Sources */,
 				901300D4261EEAEB001A4F67 /* Ebook.swift in Sources */,
 				907074BD261F3ECA00B3B63F /* EbookCell.swift in Sources */,
