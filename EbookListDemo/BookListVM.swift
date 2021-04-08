@@ -34,7 +34,7 @@ class BookListVM {
     var eBooks = [EbookCellVM]()
     
     private var nextPageToken: Int? = 0
-    private var searchTerm = ""
+    private(set) public var searchTerm = ""
     
     init(provider: EbookListProvider) {
         self.provider = provider

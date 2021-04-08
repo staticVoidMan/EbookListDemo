@@ -144,7 +144,7 @@ extension BookListVC: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if indexPath.row == viewModel.eBooks.count - 1 {
-            loadData(searchTerm: searchBar.text ?? "")
+            loadData(searchTerm: viewModel.searchTerm)
         }
     }
     
