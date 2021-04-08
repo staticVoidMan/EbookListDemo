@@ -79,6 +79,7 @@ extension BookListVC: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         loadData(searchTerm: searchBar.text ?? "")
+        searchBar.resignFirstResponder()
     }
     
 }
