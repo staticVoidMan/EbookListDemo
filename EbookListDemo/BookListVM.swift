@@ -29,9 +29,9 @@ class BookListVM {
         case append(range: Range<Int>)
     }
     
-    let provider: EbookListProvider
+    private let provider: EbookListProvider
     
-    var eBooks = [EbookCellVM]()
+    private(set) public var eBooks = [EbookCellVM]()
     
     private var nextPageToken: Int? = 0
     private(set) public var searchTerm = ""
