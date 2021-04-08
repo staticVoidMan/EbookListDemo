@@ -20,10 +20,17 @@ class BookListVC: UIViewController {
         let tableView = UITableView()
         tableView.rowHeight = UITableView.automaticDimension
         tableView.allowsSelection = false
-        tableView.tableFooterView = UIView()
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
+    }()
+    
+    let activityIndicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView(style: .gray)
+        indicator.hidesWhenStopped = true
+        
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        return indicator
     }()
     
     var viewModel: BookListVM = .init(provider: Providers.eBookListProvider)
@@ -58,14 +65,32 @@ class BookListVC: UIViewController {
                                      tableView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
                                      tableView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
                                      tableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)])
+        
+        addActivityIndicator()
+    }
+    
+    func addActivityIndicator() {
+        let loaderView = UIView()
+        loaderView.backgroundColor = .clear
+        loaderView.frame = .init(x: 0, y: 0, width: 0, height: 96)
+        tableView.tableFooterView = loaderView
+        
+        loaderView.addSubview(activityIndicator)
+        
+        NSLayoutConstraint.activate([activityIndicator.centerXAnchor.constraint(equalTo: loaderView.centerXAnchor),
+                                     activityIndicator.centerYAnchor.constraint(equalTo: loaderView.centerYAnchor)])
     }
     
     func loadData(searchTerm: String) {
+        activityIndicator.startAnimating()
+        
         viewModel.getEbooks(containing: searchTerm) { [weak self] error in
-            if let error = error {
-                print(error)
-            } else {
-                DispatchQueue.main.async {
+            DispatchQueue.main.async {
+                self?.activityIndicator.stopAnimating()
+                
+                if let error = error {
+                    print(error)
+                } else {
                     self?.tableView.reloadData()
                 }
             }
