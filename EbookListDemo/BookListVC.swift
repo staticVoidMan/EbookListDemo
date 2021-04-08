@@ -13,8 +13,6 @@ class BookListVC: UIViewController {
     
     let searchBar: UISearchBar = {
         let searchBar = UISearchBar()
-        
-        searchBar.translatesAutoresizingMaskIntoConstraints = false
         return searchBar
     }()
     
@@ -46,20 +44,20 @@ class BookListVC: UIViewController {
     func setupSearchBar() {
         searchBar.delegate = self
         
-        NSLayoutConstraint.activate([searchBar.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
-                                     searchBar.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
-                                     searchBar.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor)])
+        searchBar.frame = .init(x: 0, y: 0, width: 0, height: 64)
+        tableView.tableHeaderView = searchBar
     }
     
     func setupTableView() {
+        tableView.backgroundColor = .groupTableViewBackground
         tableView.register(EbookCell.self, forCellReuseIdentifier: Self.eBookCellName)
         tableView.dataSource = self
         tableView.delegate = self
         
         NSLayoutConstraint.activate([tableView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
                                      tableView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
-                                     tableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
-                                     tableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor)])
+                                     tableView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+                                     tableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)])
     }
     
     func loadData(searchTerm: String) {
