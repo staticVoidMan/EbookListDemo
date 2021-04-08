@@ -34,7 +34,7 @@ class BookListVC: UIViewController {
         return indicator
     }()
     
-    var viewModel: BookListVM = .init(provider: Providers.eBookListProvider)
+    var viewModel: BookListVM!
 
     override func viewDidLoad() {
         super.viewDidLoad()

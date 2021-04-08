@@ -14,11 +14,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-//        let mainVC = BookListVC()
-//
-//        self.window = UIWindow(frame: UIScreen.main.bounds)
-//        self.window?.rootViewController = mainVC
-//        self.window?.makeKeyAndVisible()
+        let mainVC = BookListVC()
+        mainVC.viewModel = .init(provider: Providers.eBookListProvider)
+
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+        self.window?.backgroundColor = .white
+        self.window?.rootViewController = mainVC
+        self.window?.makeKeyAndVisible()
         
         return true
     }
