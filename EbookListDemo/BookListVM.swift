@@ -25,7 +25,7 @@ class BookListVM {
     
     let provider: EbookListProvider
     
-    var eBooks = [EbookVM]()
+    var eBooks = [EbookCellVM]()
     
     init(provider: EbookListProvider) {
         self.provider = provider
@@ -46,7 +46,7 @@ class BookListVM {
         provider.getEbooks(containing: searchTerm) { (result) in
             switch result {
             case .success(let eBooks):
-                let eBooks = eBooks.map(EbookVM.init)
+                let eBooks = eBooks.map(EbookCellVM.init)
                 self.eBooks = eBooks
                 
                 completion(nil)

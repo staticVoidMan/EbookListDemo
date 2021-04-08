@@ -9,10 +9,23 @@ import UIKit
 
 class BookListVC: UIViewController {
     
-    lazy var searchBar: UISearchBar = {
+    static let eBookCellName = "EbookCell"
+    
+    let searchBar: UISearchBar = {
         let searchBar = UISearchBar()
-        searchBar.delegate = self
+        
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
         return searchBar
+    }()
+    
+    let tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.allowsSelection = false
+        tableView.tableFooterView = UIView()
+        
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        return tableView
     }()
     
     var viewModel: BookListVM = .init(provider: Providers.eBookListProvider)
@@ -23,17 +36,29 @@ class BookListVC: UIViewController {
     }
     
     func setupView() {
+        self.view.addSubview(searchBar)
+        self.view.addSubview(tableView)
+        
         setupSearchBar()
-        //TODO: Implement tableView
+        setupTableView()
     }
     
     func setupSearchBar() {
-        searchBar.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addSubview(searchBar)
+        searchBar.delegate = self
         
         NSLayoutConstraint.activate([searchBar.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
                                      searchBar.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
                                      searchBar.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor)])
+    }
+    
+    func setupTableView() {
+        tableView.register(EbookCell.self, forCellReuseIdentifier: Self.eBookCellName)
+        tableView.dataSource = self
+        
+        NSLayoutConstraint.activate([tableView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
+                                     tableView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
+                                     tableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
+                                     tableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor)])
     }
     
     func loadData(searchTerm: String) {
@@ -41,8 +66,9 @@ class BookListVC: UIViewController {
             if let error = error {
                 print(error)
             } else {
-                //TODO: Reload
-                print(self?.viewModel.eBooks)
+                DispatchQueue.main.async {
+                    self?.tableView.reloadData()
+                }
             }
         }
     }
@@ -53,6 +79,28 @@ extension BookListVC: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         loadData(searchTerm: searchBar.text ?? "")
+    }
+    
+}
+
+extension BookListVC: UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return viewModel.eBooks.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let eBookVM = viewModel.eBooks[indexPath.row]
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: Self.eBookCellName,
+                                                 for: indexPath) as! EbookCell
+        cell.setup(with: eBookVM)
+        
+        return cell
     }
     
 }
