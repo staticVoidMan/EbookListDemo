@@ -27,6 +27,9 @@ class BookListVM {
     
     var eBooks = [EbookCellVM]()
     
+    private var nextPageToken: Int? = 0
+    private var searchTerm = ""
+    
     init(provider: EbookListProvider) {
         self.provider = provider
     }
@@ -43,11 +46,26 @@ class BookListVM {
             return
         }
         
-        provider.getEbooks(containing: searchTerm) { (result) in
+        if self.searchTerm != searchTerm {
+            nextPageToken = 0
+        }
+        
+        guard let nextPageToken = nextPageToken else { return }
+        
+        provider.getEbooks(containing: searchTerm, offset: nextPageToken) { [weak self] (result) in
+            guard let _weakSelf = self else { return }
+            
             switch result {
-            case .success(let eBooks):
-                let eBooks = eBooks.map(EbookCellVM.init)
-                self.eBooks = eBooks
+            case .success(let response):
+                let eBooks = response.eBooks.map(EbookCellVM.init)
+                _weakSelf.nextPageToken = response.nextPageToken
+                
+                if _weakSelf.searchTerm == searchTerm {
+                    _weakSelf.eBooks.append(contentsOf: eBooks)
+                } else {
+                    _weakSelf.searchTerm = searchTerm
+                    _weakSelf.eBooks = eBooks
+                }
                 
                 completion(nil)
             case .failure(let error):

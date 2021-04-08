@@ -7,6 +7,11 @@
 
 import Foundation
 
+struct EBookList {
+    var nextPageToken: Int?
+    var eBooks: [Ebook]
+}
+
 struct Ebook {
     struct Person {
         let id: Int

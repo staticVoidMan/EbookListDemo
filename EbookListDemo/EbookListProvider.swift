@@ -7,8 +7,8 @@
 
 import Foundation
 
-typealias EbookListProviderCompletion = (Result<[Ebook], Error>) -> Void
+typealias EbookListProviderCompletion = (Result<EBookList, Error>) -> Void
 
 protocol EbookListProvider {
-    func getEbooks(containing searchTerm: String, completion: @escaping EbookListProviderCompletion)
+    func getEbooks(containing searchTerm: String, offset: Int, completion: @escaping EbookListProviderCompletion)
 }

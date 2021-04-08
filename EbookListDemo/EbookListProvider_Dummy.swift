@@ -9,12 +9,15 @@ import Foundation
 
 struct EbookListProvider_Dummy: EbookListProvider {
     
-    func getEbooks(containing searchTerm: String, completion: @escaping EbookListProviderCompletion) {
-        let eBooks: [Ebook] = (1...5).map { bookIndex in
+    func getEbooks(containing searchTerm: String, offset: Int, completion: @escaping EbookListProviderCompletion) {
+        let startIndex = offset
+        let endIndex = offset + 10
+        let eBooks: [Ebook] = (startIndex..<endIndex).map { bookIndex in
             var authors = [Ebook.Person]()
             var narrators = [Ebook.Person]()
             
-            for idx in 1...bookIndex {
+            for idx in 0...min(9, bookIndex) {
+                let idx = idx + 1
                 let author = Ebook.Person(id: idx, name: "Author \(idx)")
                 let narrator = Ebook.Person(id: idx, name: "Narrator \(idx)")
                 
@@ -30,7 +33,16 @@ struct EbookListProvider_Dummy: EbookListProvider {
             return eBook
         }
         
-        completion(.success(eBooks))
+        let nextPageToken: Int? = {
+            if endIndex >= 50 {
+                return nil
+            } else {
+                return endIndex
+            }
+        }()
+        let response = EBookList(nextPageToken: nextPageToken,
+                                 eBooks: eBooks)
+        completion(.success(response))
     }
     
 }

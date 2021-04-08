@@ -54,6 +54,7 @@ class BookListVC: UIViewController {
     func setupTableView() {
         tableView.register(EbookCell.self, forCellReuseIdentifier: Self.eBookCellName)
         tableView.dataSource = self
+        tableView.delegate = self
         
         NSLayoutConstraint.activate([tableView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
                                      tableView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
@@ -102,6 +103,16 @@ extension BookListVC: UITableViewDataSource {
         cell.setup(with: eBookVM)
         
         return cell
+    }
+    
+}
+
+extension BookListVC: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if indexPath.row == viewModel.eBooks.count - 1 {
+            loadData(searchTerm: searchBar.text ?? "")
+        }
     }
     
 }
