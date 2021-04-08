@@ -22,6 +22,8 @@ struct EbookCellVM {
         }
     }
     
+    var imageURL: URL? { URL(string: eBook.cover.url) }
+    
     init(eBook: Ebook) {
         self.eBook = eBook
     }

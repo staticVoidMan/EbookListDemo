@@ -6,13 +6,14 @@
 //
 
 import UIKit
+import SDWebImage
 
 class EbookCell: UITableViewCell {
     
     let coverImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
-        imageView.backgroundColor = .lightGray
+        imageView.contentMode = .scaleAspectFit
+        imageView.clipsToBounds = true
         
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
@@ -69,20 +70,18 @@ class EbookCell: UITableViewCell {
     private func setCoverImageViewConstraints() {
         let imageView = coverImageView
         
-        NSLayoutConstraint.activate([eBookTitleNameLabel.topAnchor.constraint(equalTo: imageView.topAnchor,
-                                                                              constant: 4),
-                                     imageView.bottomAnchor.constraint(equalTo: narratorNamesLabel.bottomAnchor,
-                                                                       constant: 4),
+        NSLayoutConstraint.activate([imageView.heightAnchor.constraint(equalToConstant: 84),
                                      imageView.widthAnchor.constraint(equalToConstant: 84),
                                      imageView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor,
-                                                                        constant: 8)])
+                                                                        constant: 8),
+                                     imageView.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor)])
     }
     
     private func setEbookTitleNameLabelConstraints() {
         let label = eBookTitleNameLabel
         
         NSLayoutConstraint.activate([label.leadingAnchor.constraint(equalTo: coverImageView.trailingAnchor,
-                                                                    constant: 12),
+                                                                    constant: 8),
                                      self.contentView.trailingAnchor.constraint(equalTo: label.trailingAnchor,
                                                                                 constant: 4),
                                      label.topAnchor.constraint(equalTo: self.contentView.topAnchor,
@@ -117,6 +116,9 @@ extension EbookCell {
         eBookTitleNameLabel.text = viewModel.eBookTitleName
         authorNamesLabel.text = viewModel.authorNamesText
         narratorNamesLabel.text = viewModel.narratorNamesText
+        
+        let placeholderImage = UIImage(named: "BookPlaceholder")
+        coverImageView.sd_setImage(with: viewModel.imageURL, placeholderImage: placeholderImage)
     }
     
 }
