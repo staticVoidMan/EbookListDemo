@@ -1,5 +1,5 @@
 //
-//  BookListVMTests.swift
+//  EbookListVMTests.swift
 //  EbookListDemoTests
 //
 //  Created by Amin Siddiqui on 09/04/21.
@@ -7,9 +7,9 @@
 
 import XCTest
 
-class BookListVMTests: XCTestCase {
+class EbookListVMTests: XCTestCase {
     
-    var viewModel: BookListVM!
+    var viewModel: EbookListVM!
 
     override func setUp() {
         super.setUp()

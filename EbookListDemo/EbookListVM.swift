@@ -1,5 +1,5 @@
 //
-//  BookListVM.swift
+//  EbookListVM.swift
 //  EbookListDemo
 //
 //  Created by Amin Siddiqui on 07/04/21.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum BookListVMError: Error {
+enum EbookListVMError: Error {
     case searchTermIsInvalid
     case somethingWentWrong(error: Error?)
     
@@ -21,7 +21,7 @@ enum BookListVMError: Error {
     }
 }
 
-class BookListVM {
+class EbookListVM {
     
     enum LoadType {
         case none
@@ -46,7 +46,7 @@ class BookListVM {
         return isValid
     }
     
-    func getEbooks(containing searchTerm: String, completion: @escaping (Result<LoadType, BookListVMError>)->Void) {
+    func getEbooks(containing searchTerm: String, completion: @escaping (Result<LoadType, EbookListVMError>)->Void) {
         guard isSearchTermValid(searchTerm) else {
             completion(.failure(.searchTermIsInvalid))
             return

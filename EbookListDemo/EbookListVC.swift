@@ -1,5 +1,5 @@
 //
-//  BookListVC.swift
+//  EbookListVC.swift
 //  EbookListDemo
 //
 //  Created by Amin Siddiqui on 07/04/21.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class BookListVC: UIViewController {
+class EbookListVC: UIViewController {
     
     static let eBookCellName = "EbookCell"
     
@@ -35,7 +35,7 @@ class BookListVC: UIViewController {
         return indicator
     }()
     
-    var viewModel: BookListVM!
+    var viewModel: EbookListVM!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -112,7 +112,7 @@ class BookListVC: UIViewController {
 
 }
 
-extension BookListVC: UISearchBarDelegate {
+extension EbookListVC: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         loadData(searchTerm: searchBar.text ?? "")
@@ -121,7 +121,7 @@ extension BookListVC: UISearchBarDelegate {
     
 }
 
-extension BookListVC: UITableViewDataSource {
+extension EbookListVC: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -143,7 +143,7 @@ extension BookListVC: UITableViewDataSource {
     
 }
 
-extension BookListVC: UITableViewDelegate {
+extension EbookListVC: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if indexPath.row == viewModel.eBooks.count - 1 {
