@@ -10,7 +10,12 @@ import Foundation
 struct Providers {
     
     static var eBookListProvider: EbookListProvider {
-        return EbookListProvider_API()
+        if CommandLine.arguments.contains("enable-ui-testing") {
+            return EbookListProvider_Dummy()
+        } else {
+            return EbookListProvider_API()
+        }
+        
     }
     
 }
