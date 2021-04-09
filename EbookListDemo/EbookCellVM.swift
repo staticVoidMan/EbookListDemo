@@ -12,13 +12,13 @@ struct EbookCellVM {
     
     var eBookTitleName: String { eBook.title }
     
-    var authorNamesText: String { "by " + eBook.authors.map { $0.name }.joined(separator: ", ") }
+    var authorNamesText: String { "By: " + eBook.authors.map { $0.name }.joined(separator: ", ") }
     
     var narratorNamesText: String {
         if eBook.narrators.isEmpty {
             return " "
         } else {
-            return "with " + eBook.narrators.map { $0.name }.joined(separator: ", ")
+            return "With: " + eBook.narrators.map { $0.name }.joined(separator: ", ")
         }
     }
     
