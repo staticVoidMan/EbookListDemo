@@ -29,6 +29,8 @@ class BookListVMTests: XCTestCase {
             
             expectation.fulfill()
         }
+        
+        wait(for: [expectation], timeout: 2)
     }
     
     func testViewModelCanLoadAllBooks() {
@@ -48,6 +50,8 @@ class BookListVMTests: XCTestCase {
                 }
             }
         }
+        
+        wait(for: [expectation], timeout: 2)
     }
     
     func testViewModelCanReloadBooksWhenSearchTermChanges() {
@@ -69,6 +73,8 @@ class BookListVMTests: XCTestCase {
             
             expectation.fulfill()
         }
+        
+        wait(for: [expectation], timeout: 2)
     }
 
 }
