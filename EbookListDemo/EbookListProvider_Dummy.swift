@@ -9,9 +9,15 @@ import Foundation
 
 struct EbookListProvider_Dummy: EbookListProvider {
     
+    let limit: Int
+    
+    init(limit: Int = 25) {
+        self.limit = limit
+    }
+    
     func getEbooks(containing searchTerm: String, offset: Int, completion: @escaping EbookListProviderCompletion) {
         let startIndex = offset
-        let endIndex = offset + 10
+        let endIndex = min(limit, offset + 10)
         let eBooks: [Ebook] = (startIndex..<endIndex).map { bookIndex in
             var authors = [Ebook.Person]()
             var narrators = [Ebook.Person]()
@@ -34,7 +40,7 @@ struct EbookListProvider_Dummy: EbookListProvider {
         }
         
         let nextPageToken: String? = {
-            if endIndex >= 50 {
+            if endIndex >= limit {
                 return nil
             } else {
                 return String(endIndex)
