@@ -27,6 +27,21 @@ class EbookListVC: UIViewController {
         return tableView
     }()
     
+    let noResultsLabel: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 0
+        label.textAlignment = .center
+        label.isHidden = true
+        
+        label.text = """
+            No results found.
+            Check the spelling or try different keywords
+            """
+        
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     let activityIndicator: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView(style: .gray)
         indicator.hidesWhenStopped = true
@@ -45,9 +60,11 @@ class EbookListVC: UIViewController {
     func setupView() {
         self.view.addSubview(searchBar)
         self.view.addSubview(tableView)
+        self.view.addSubview(noResultsLabel)
         
         setupSearchBar()
         setupTableView()
+        setupNoResultsLabel()
     }
     
     func setupSearchBar() {
@@ -83,6 +100,13 @@ class EbookListVC: UIViewController {
                                      activityIndicator.centerYAnchor.constraint(equalTo: loaderView.centerYAnchor)])
     }
     
+    func setupNoResultsLabel() {
+        NSLayoutConstraint.activate([noResultsLabel.leadingAnchor.constraint(equalTo: tableView.leadingAnchor),
+                                     noResultsLabel.trailingAnchor.constraint(equalTo: tableView.trailingAnchor),
+                                     noResultsLabel.topAnchor.constraint(equalTo: tableView.topAnchor),
+                                     noResultsLabel.bottomAnchor.constraint(equalTo: tableView.bottomAnchor)])
+    }
+    
     func loadData(searchTerm: String) {
         activityIndicator.startAnimating()
         
@@ -96,6 +120,7 @@ class EbookListVC: UIViewController {
                     case .none:
                         break
                     case .reload:
+                        self?.noResultsLabel.isHidden = self?.viewModel.eBooks.isEmpty == false
                         self?.tableView.reloadData()
                     case .append(let range):
                         let newIndexPaths = range.map { IndexPath(row: $0, section: 0) }
