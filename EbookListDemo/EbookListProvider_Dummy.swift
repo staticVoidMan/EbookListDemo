@@ -7,15 +7,18 @@
 
 import Foundation
 
-struct EbookListProvider_Dummy: EbookListProvider {
+class EbookListProvider_Dummy: EbookListProvider {
     
     let limit: Int
+    var throwError: Bool = false
     
     init(limit: Int = 25) {
         self.limit = limit
     }
     
     func getEbooks(containing searchTerm: String, offset: Int, completion: @escaping EbookListProviderCompletion) {
+        guard throwError == false else { completion(.failure(NSError())); return }
+        
         let startIndex = offset
         let endIndex = min(limit, offset + 10)
         let eBooks: [Ebook] = (startIndex..<endIndex).map { bookIndex in

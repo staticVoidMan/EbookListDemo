@@ -9,12 +9,13 @@ import XCTest
 
 class EbookListVMTests: XCTestCase {
     
+    var provider: EbookListProvider_Dummy!
     var viewModel: EbookListVM!
 
     override func setUp() {
         super.setUp()
         
-        let provider = EbookListProvider_Dummy(limit: 25)
+        provider = EbookListProvider_Dummy(limit: 25)
         viewModel = .init(provider: provider)
     }
     
@@ -72,6 +73,26 @@ class EbookListVMTests: XCTestCase {
         viewModel.getEbooks(containing: newSearchTerm) { (result) in
             XCTAssertEqual(self.viewModel.searchTerm, newSearchTerm, "Search term should be updated")
             XCTAssertEqual(self.viewModel.eBooks.count, 10, "Request should end with fresh 10 books for the updated search term")
+            
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 2)
+    }
+    
+    func testViewModelCanPassOnError() {
+        let expectation = XCTestExpectation(description: "Can handle error when getting books")
+        
+        provider.throwError = true
+        
+        let searchTerm = "Lorem ipsum"
+        viewModel.getEbooks(containing: searchTerm) { (result) in
+            switch result {
+            case .success:
+                XCTAssert(false, "Expected to fail")
+            case .failure:
+                XCTAssert(true, "Expected to fail")
+            }
             
             expectation.fulfill()
         }
