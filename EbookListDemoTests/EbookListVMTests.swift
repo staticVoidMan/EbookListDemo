@@ -37,21 +37,23 @@ class EbookListVMTests: XCTestCase {
         let expectation = XCTestExpectation(description: "Can get all books for given search term")
         
         let searchTerm = "Lorem ipsum"
-        for i in 0...2 {
+        for i in 0...3 {
             viewModel.getEbooks(containing: searchTerm) { (result) in
                 if i == 0 {
                     XCTAssertEqual(self.viewModel.eBooks.count, 10, "1st request should end with 10 books")
                 } else if i == 1 {
                     XCTAssertEqual(self.viewModel.eBooks.count, 20, "2nd request should end with 20 books")
                 } else if i == 2 {
-                    XCTAssertEqual(self.viewModel.eBooks.count, 25, "Last request should end with 25 books")
+                    XCTAssertEqual(self.viewModel.eBooks.count, 25, "3rd request should end with all 25 books")
+                } else if i == 3 {
+                    XCTAssertEqual(self.viewModel.eBooks.count, 25, "Last request should not increase book count")
                     
                     expectation.fulfill()
                 }
             }
         }
         
-        wait(for: [expectation], timeout: 2)
+        wait(for: [expectation], timeout: 5)
     }
     
     func testViewModelCanReloadBooksWhenSearchTermChanges() {
