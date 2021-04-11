@@ -27,6 +27,7 @@ class EbookListVMTests: XCTestCase {
         let searchTerm = "Lorem ipsum"
         viewModel.getEbooks(containing: searchTerm) { (result) in
             XCTAssertEqual(self.viewModel.eBooks.count, 10, "1st request should end with 10 books")
+            XCTAssertEqual(self.viewModel.eBooks[9].eBookTitleName, "Lorem ipsum 10", "Expected book name")
             
             expectation.fulfill()
         }
@@ -42,10 +43,13 @@ class EbookListVMTests: XCTestCase {
             viewModel.getEbooks(containing: searchTerm) { (result) in
                 if i == 0 {
                     XCTAssertEqual(self.viewModel.eBooks.count, 10, "1st request should end with 10 books")
+                    XCTAssertEqual(self.viewModel.eBooks[9].eBookTitleName, "Lorem ipsum 10", "Expected name mismatch")
                 } else if i == 1 {
                     XCTAssertEqual(self.viewModel.eBooks.count, 20, "2nd request should end with 20 books")
+                    XCTAssertEqual(self.viewModel.eBooks[19].eBookTitleName, "Lorem ipsum 20", "Expected name mismatch")
                 } else if i == 2 {
                     XCTAssertEqual(self.viewModel.eBooks.count, 25, "3rd request should end with all 25 books")
+                    XCTAssertEqual(self.viewModel.eBooks[24].eBookTitleName, "Lorem ipsum 25", "Expected name mismatch")
                 } else if i == 3 {
                     XCTAssertEqual(self.viewModel.eBooks.count, 25, "Last request should not increase book count")
                     
@@ -67,12 +71,14 @@ class EbookListVMTests: XCTestCase {
         viewModel.getEbooks(containing: searchTerm) { (result) in
             XCTAssertEqual(self.viewModel.searchTerm, searchTerm, "Search term should be updated")
             XCTAssertEqual(self.viewModel.eBooks.count, 10, "1st request should end with 10 books")
+            XCTAssertEqual(self.viewModel.eBooks[9].eBookTitleName, "Lorem ipsum 10", "Expected name mismatch")
         }
         
         let newSearchTerm = "Dolor set"
         viewModel.getEbooks(containing: newSearchTerm) { (result) in
             XCTAssertEqual(self.viewModel.searchTerm, newSearchTerm, "Search term should be updated")
             XCTAssertEqual(self.viewModel.eBooks.count, 10, "Request should end with fresh 10 books for the updated search term")
+            XCTAssertEqual(self.viewModel.eBooks[9].eBookTitleName, "Dolor set 10", "Expected name mismatch")
             
             expectation.fulfill()
         }

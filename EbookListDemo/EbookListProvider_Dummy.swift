@@ -35,7 +35,7 @@ class EbookListProvider_Dummy: EbookListProvider {
             }
             
             let eBook = Ebook(id: String(bookIndex),
-                              title: "\(searchTerm) \(bookIndex)",
+                              title: "\(searchTerm) \(bookIndex + 1)",
                               authors: authors,
                               narrators: narrators,
                               cover: .init(url: ""))
