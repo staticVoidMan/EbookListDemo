@@ -79,6 +79,7 @@ class EbookListVC: UIViewController {
         tableView.register(EbookCell.self, forCellReuseIdentifier: Self.eBookCellName)
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.keyboardDismissMode = .onDrag
         
         NSLayoutConstraint.activate([tableView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
                                      tableView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
