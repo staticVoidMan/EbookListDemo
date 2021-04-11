@@ -9,7 +9,7 @@ import Foundation
 
 class EbookListProvider_Dummy: EbookListProvider {
     
-    let limit: Int
+    var limit: Int
     var throwError: Bool = false
     
     init(limit: Int = 25) {

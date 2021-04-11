@@ -80,6 +80,23 @@ class EbookListVMTests: XCTestCase {
         wait(for: [expectation], timeout: 2)
     }
     
+    func testViewModelCanHandleZeroResults() {
+        let expectation = XCTestExpectation(description: "Can search but handle response with 0 books")
+        
+        provider.limit = 0
+        
+        XCTAssertEqual(viewModel.eBooks.count, 0, "Initial Condition, books array must be empty")
+        
+        let searchTerm = "TILT"
+        viewModel.getEbooks(containing: searchTerm) { (result) in
+            XCTAssertEqual(self.viewModel.eBooks.count, 0, "Expected search to return an empty books array")
+            
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 2)
+    }
+    
     func testViewModelCanPassOnError() {
         let expectation = XCTestExpectation(description: "Can handle error when getting books")
         
