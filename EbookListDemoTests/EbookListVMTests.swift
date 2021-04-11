@@ -122,5 +122,28 @@ class EbookListVMTests: XCTestCase {
         
         wait(for: [expectation], timeout: 2)
     }
+    
+    func testViewModelGivesErrorWhenSearchTermIsEmpty() {
+        let expectation = XCTestExpectation(description: "Empty search term should fail with an expected error")
+        
+        let searchTerm = " "
+        viewModel.getEbooks(containing: searchTerm) { (result) in
+            switch result {
+            case .success:
+                XCTAssert(false, "Empty search term should fail with an expected error")
+            case .failure(let error):
+                switch error {
+                case .searchTermIsInvalid:
+                    XCTAssert(true, "Empty search term error received")
+                default:
+                    XCTAssert(false, "Unexpected error case")
+                }
+            }
+            
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 2)
+    }
 
 }
