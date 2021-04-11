@@ -84,7 +84,7 @@ class EbookListVC: UIViewController {
         NSLayoutConstraint.activate([tableView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
                                      tableView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
                                      tableView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
-                                     tableView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor)])
+                                     tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)])
         
         addActivityIndicator()
     }
