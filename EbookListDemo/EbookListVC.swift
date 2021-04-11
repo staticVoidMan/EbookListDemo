@@ -21,6 +21,7 @@ class EbookListVC: UIViewController {
         tableView.rowHeight = UITableView.automaticDimension
         tableView.allowsSelection = false
         tableView.separatorInset = .init(top: 0, left: 8, bottom: 0, right: 0)
+        tableView.keyboardDismissMode = .onDrag
         
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.accessibilityIdentifier = "eBookTableView"
@@ -75,11 +76,11 @@ class EbookListVC: UIViewController {
     }
     
     func setupTableView() {
-        tableView.backgroundColor = .groupTableViewBackground
         tableView.register(EbookCell.self, forCellReuseIdentifier: Self.eBookCellName)
+        
+        tableView.backgroundColor = .groupTableViewBackground
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.keyboardDismissMode = .onDrag
         
         NSLayoutConstraint.activate([tableView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
                                      tableView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
@@ -108,6 +109,10 @@ class EbookListVC: UIViewController {
                                      noResultsLabel.bottomAnchor.constraint(equalTo: tableView.bottomAnchor)])
     }
     
+}
+
+extension EbookListVC {
+    
     func loadData(searchTerm: String) {
         activityIndicator.startAnimating()
         
@@ -121,7 +126,8 @@ class EbookListVC: UIViewController {
                     case .none:
                         break
                     case .reload:
-                        self?.noResultsLabel.isHidden = self?.viewModel.eBooks.isEmpty == false
+                        var showNoResultsLabel: Bool { self?.viewModel.eBooks.isEmpty == false }
+                        self?.noResultsLabel.isHidden = showNoResultsLabel
                         self?.tableView.reloadData()
                     case .append(let range):
                         let newIndexPaths = range.map { IndexPath(row: $0, section: 0) }
@@ -149,10 +155,6 @@ extension EbookListVC: UISearchBarDelegate {
 
 extension EbookListVC: UITableViewDataSource {
     
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.eBooks.count
     }
@@ -172,7 +174,9 @@ extension EbookListVC: UITableViewDataSource {
 extension EbookListVC: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if indexPath.row == viewModel.eBooks.count - 1 {
+        var shouldLoadMore: Bool { indexPath.row == viewModel.eBooks.count - 1 }
+        
+        if shouldLoadMore {
             loadData(searchTerm: viewModel.searchTerm)
         }
     }

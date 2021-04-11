@@ -52,7 +52,9 @@ class EbookListVM {
             return
         }
         
-        if self.searchTerm != searchTerm {
+        var hasSearchTermChanged: Bool { self.searchTerm != searchTerm }
+        if hasSearchTermChanged {
+            //search term changed so reset page token for fresh request
             nextPageToken = 0
         }
         
@@ -63,21 +65,27 @@ class EbookListVM {
             
             switch result {
             case .success(let response):
+                var hasSearchTermChanged: Bool { _weakSelf.searchTerm != searchTerm }
+                
                 let eBooks = response.eBooks.map(EbookCellVM.init)
                 _weakSelf.nextPageToken = Int(response.nextPageToken ?? "")
                 
-                if _weakSelf.searchTerm == searchTerm {
-                    let range: Range<Int> = {
+                if hasSearchTermChanged {
+                    //search term has changed so reset array
+                    _weakSelf.searchTerm = searchTerm
+                    _weakSelf.eBooks = eBooks
+                    
+                    completion(.success(.reload))
+                } else {
+                    //search term has not changed so append result
+                    let appendRange: Range<Int> = {
                         let startIndex = _weakSelf.eBooks.count
                         let endIndex = startIndex + eBooks.count
                         return startIndex..<endIndex
                     }()
                     _weakSelf.eBooks.append(contentsOf: eBooks)
-                    completion(.success(.append(range: range)))
-                } else {
-                    _weakSelf.searchTerm = searchTerm
-                    _weakSelf.eBooks = eBooks
-                    completion(.success(.reload))
+                    
+                    completion(.success(.append(range: appendRange)))
                 }
             case .failure(let error):
                 completion(.failure(.somethingWentWrong(error: error)))
